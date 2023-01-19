@@ -70,7 +70,7 @@ int main()
             printf("\n%d. satirda denk gelmis\n",i+1);
         }
     }
-    printf("\n%d kez denk gelmis.\n\n\n",denk_gelis);
+    printf("\n\n%d kez denk gelmis.\n\n\n",denk_gelis);
 
     return 0;
 }
