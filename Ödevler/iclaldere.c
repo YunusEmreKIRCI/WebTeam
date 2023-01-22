@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//iclal dere
-
 int main(){
 
 int sayac;
