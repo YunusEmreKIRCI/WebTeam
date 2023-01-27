@@ -2,8 +2,13 @@
 #include <stdlib.h>
 #include <time.h>
 //Beril Isalar
+<<<<<<< HEAD
+//10x10 luk matrisi rastgele 1 ve 0 ile doldurun sonrasinda icinde en cok 1 olan 2 sutunun da 1 oldugu satir sayisini ve hangi satirda 1 olduklarini yazdýrýn
+
+=======
 //10x10 luk matrisi rastgele 1 ve 0 ile doldurun sonrasinda icinde en cok 1 olan 2 sutunun da 1 oldugu satir sayisini ve hangi satirda 1 olduklarini yazdýrýn
 /*int main()
+>>>>>>> 0bea8194862fcf42a53d6eadc52c0d74986e65e7
 {
     int max1,max1terim=0,max2,max2terim=0;
     int dizi[10][10];
