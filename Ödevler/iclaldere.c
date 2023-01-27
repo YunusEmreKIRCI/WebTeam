@@ -1,36 +1,91 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include <time.h>
 
-int main(){
+int main()
+{
 
-int sayac;
+srand(time(NULL));
+int bir,iki,konum1,konum2;
+int **A;
+int *B;
+B=(int*)calloc(10,sizeof(int));
+A=(int**)malloc(10*sizeof(int*));
 
-int boyut;
-printf("dizinin boyutunu girin :\n");
-scanf("%d",&boyut);
-int A[boyut];
-int adet;
+for(int i=0;i<10; i++){
+    *(A+i)=(int*)malloc(10*sizeof(int));
+        for(int j=0;j<10;j++){
+            A[i][j]=rand()%2;
+            printf("%d ",A[i][j]);
+        }
+        printf("\n");
+    }
 
-for(int i=0;i<boyut;i++){
-    printf("\n %d. elemani girin : ",i+1);
-    scanf("%d",&A[i]);
+    printf("\n");
+
+
+for(int j=0;j<10;j++)
+{
+    for(int i=0;i<10;i++)
+    {
+        if(A[i][j]==1)
+        {
+            B[j]=B[j]+1;
+        }
+    }
+}
+
+for(int i=0;i<10;i++){
+    printf("%d ",B[i]);}
+
+    printf("\n");
+
+bir=B[0];
+iki=B[0];
+for(int i=0;i<10;i++){
+    if(B[i]>bir){
+        bir=B[i];
+    }
+}
+
+for(int i=0;i<10;i++){
+    if(B[i]==bir)
+        konum1=i;
+}
+
+for(int i=0;i<10;i++){
+    if(B[i]<bir && B[i]>iki){
+        iki=B[i];
+    }
+}
+
+for(int i=0;i<10;i++){
+    if(B[i]==iki){
+        konum2=i;
+    }
 }
 
 printf("\n");
 
-
-for(int i=0;i<boyut;i++){
-        sayac=1;
-        for(int j=i+1;j<boyut;j++){
-            if(A[i]==A[j]){
-                sayac++;
-                A[j]=-1;
-            }
-        }
-        if(A[i]!=-1)
-            printf("%d\t%d adet\n",A[i],sayac);
+printf("\n%d. sutunda toplam %d adet bir var\n\n",konum1+1,bir);
+for(int i=0;i<10;i++){
+    if(A[i][konum1]==1){
+        printf("%d. satir \n",i+1);
     }
-
-
-
 }
+printf("\n");
+
+printf("%d. sutunda toplam %d adet bir var\n\n",konum2+1,iki);
+for(int i=0;i<10;i++){
+    if(A[i][konum2]==1){
+        printf("%d. satir \n",i+1);
+    }
+}
+
+free(A);
+free(B);
+    return 0;
+}
+
+
