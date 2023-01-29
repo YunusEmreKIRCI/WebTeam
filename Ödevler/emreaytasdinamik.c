@@ -7,7 +7,6 @@ int *number;
 
 void dotable(){
 
-   number = (int *)malloc(10 * sizeof(int));
 
    srand(time(NULL));
    
@@ -44,25 +43,85 @@ void onenumber(){
     }
 
     printf("\n-------------------\n\n");
-  
+
+
 
 }
 
 int main(){
 
-    table = (int**)malloc(10 * sizeof(int *));
-    for(int i = 0; i < 10;i++){
+        
+    number = (int *)malloc(10 * sizeof(int));
+    
+    int yy = 0;
 
-    table[i] =  (int*)malloc(10 * sizeof(int));
+    while (!number)
+    {
+          
+      printf("Bellekten yer ayrilamadi...");
+           yy++;
+           number = (int *)malloc(10 * sizeof(int));
+           number = (int *)malloc(10 * sizeof(int));
+           if(yy == 100){
+            free(number);
+            printf("Sistemden cikiliyor...");
+            exit(0);
+        }
+    }
+
+
+   int yt = 0;
+    table = (int**)malloc(10 * sizeof(int *));
+
+    while (!table)
+    {
+            yt++;
+            table = (int**)malloc(10 * sizeof(int *));
+            if(yt == 100){
+               free(number);
+               free(table);  
+               printf("Sistemden cikiliyor...");
+               exit(0);  
+            }
+    }
+    
+
+
+    for(int i = 0; i < 10;i++){
+        table[i] =  (int*)malloc(10 * sizeof(int));
+
+        int yu = 0;
+        while (!table[i])
+    {
+            yu++;
+            table[i] =  (int*)malloc(10 * sizeof(int));
+            if(yu == 100){
+
+               free(number);
+               free(table);  
+               printf("Sistemden cikiliyor...");
+               exit(0);  
+            
+            }
+    
+    
+    }
+ 
+
 
     } 
     
     dotable();
     onenumber();
     maxverstappen();
-
     
+    free(number);
+    for(int i = 9; i >= 0;i--){
+        free(table[i]);
+    }     
+
     return 0;
+
 }   
 
 
@@ -118,4 +177,5 @@ for(int i = 0; i < 10;i++){
 printf("%d kere karsilasma olmus...\n\n",sayac);
 
 }
+
 
