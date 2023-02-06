@@ -1,85 +1,117 @@
 #include <stdio.h>
 #include <stdlib.h>
+struct node
+{
+    int Value1;
+    struct node *link;
+};
+void print_linkedlist(struct node *head)
+{
+    struct node *doesExist = NULL;
+    doesExist=head;
+    while(doesExist!=NULL)
+    {
+        printf("%d ",doesExist->Value1);
+        doesExist = doesExist->link;
+    }
+
+}
+void Insert_End_Of_The_List(struct node *head,int value)
+{
+    struct node *ptr,*LastNode = NULL;
+
+    LastNode=(struct node *)malloc(sizeof(struct node));
+    LastNode->Value1=value;
+    LastNode->link=NULL;
+
+    ptr=head;
+    while(ptr->link!=NULL)
+    {
+        ptr = ptr->link;
+    }
+    ptr->link = LastNode;
+
+}
+void Insert(struct node *head,int value)
+{
+    int count,select =0;
+    struct node *oldNode,*ptr,*newNode = NULL;
+
+    newNode=(struct node *)malloc(sizeof(struct node));
+    newNode->Value1=value;
+    newNode->link=NULL;
+
+    ptr=head;
+    while(ptr!=NULL)
+    {
+        count++;
+        ptr = ptr->link;
+    }
+
+    int mid = count/2;
+
+    while(head!=NULL)
+    {
+        if(select==mid)
+        {
+            oldNode->link=newNode;
+            newNode->link=head;
+            break;
+        }
+        select++;
+        oldNode=head;
+        head = head->link;
+    }
+
+}
+void Delete_Node(struct node *head,int value)
+{
+    struct node *ptr=NULL;
+    ptr=head;
+
+    while(ptr!=NULL)
+    {
+        if(ptr->Value1==value)
+        {
+            ptr=NULL; // yapilacak
+            break;
+        }
+        ptr=ptr->link;
+    }
+
+}
+
 int main()
-{   int dizi[10][10];
-    int sayac2;
-    srand(time(NULL));
-    int sutunIndex;
-    int sutunIndex2;
-    int maxdizieleman[10];
-    int max=-1;
-    int max2=-1;
-    int sayac=0;
-    int maxdizim[10][1];
-    int maxdizim2[10][1];
-    int arr[10];
-    int k=0;
-    for(int i=0;i<10;i++)
-    {
-        for(int k=0;k<10;k++)
-        {
-            dizi[i][k]=rand()%2;
-            printf("%d ",dizi[i][k]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-    printf("\n");
-    for(int i=0;i<10;i++)
-    {
-        for(int k=0;k<10;k++)
-        {
-            if(dizi[k][i]==1)
-            {
-                sayac++;
-            }
-            if(k==9)
-            {
-                printf("%d ",sayac);
-            }
-        }
-        maxdizieleman[i]=sayac;
-        if(max<sayac)
-            {
-                max=sayac;
-                sutunIndex=i;
-            }
-            for(int z=0;z<i;z++)
-            {
-                if(max2<maxdizieleman[z] && maxdizieleman[z]!=max)
-                {
-                   max2=maxdizieleman[z];
-                   sutunIndex2=z;
-                }
-            }
-       sayac=0;
-    }
-    printf("\n\nmax : %d",max);
-    printf("\n\nmax2 : %d\n\n",max2);
+{
+    struct node *head=NULL;
+    head=(struct node *)malloc(sizeof(struct node));
+    head->Value1=45;
+    head->link=NULL;
 
-    for(int i=0;i<10;i++)
-    {
-        maxdizim[i][1]=dizi[i][sutunIndex];
-        maxdizim2[i][1]=dizi[i][sutunIndex2];
-    }
+    struct node *another=NULL;
+    another=(struct node *)malloc(sizeof(struct node));
+    another->Value1=30;
+    another->link=NULL;
 
-    for(int i=0;i<10;i++)
-    {
-        printf("%d %d\n",maxdizim[i][1],maxdizim2[i][1]);
-        if(maxdizim[i][1]==1 && maxdizim2[i][1]==1)
-        {
-            arr[k]=i;
-            k++;
-            sayac2++;
-        }
-    }
-    printf("\n");
-    for(int i=0;i<k;i++)
-    {
-        printf("%d. ",arr[i]+1);
-    }
-    printf("satirlarinda esitlerdir ve Toplamda %d tane esit ve 1 olduklari satir vardir.",sayac2);
-    printf("\n");
-    printf("\n");
+    head->link=another;
+
+    another=(struct node *)malloc(sizeof(struct node));
+    another->Value1=15;
+    another->link=NULL;
+
+    head->link->link = another;
+
+
+
+    Insert_End_Of_The_List(head,240);
+
+    Delete_Node(head,240); // yapilacak
+
+    Insert(head,44);
+    print_linkedlist(head);
+
+    free(another);
+    free(head);
+
     return 0;
 }
