@@ -1,113 +1,76 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int elemanlar[10][2];
+typedef struct dugum
+ {
+    int veri;
+    struct dugum *next;
+} Node;
 
-int bas = -1;
-int kuyruk = -1;
-int liste = 0;
+typedef struct
+ {
+    int once;
+    Node *next;
+} onceliksirasi;
 
-void sonaEkle(int veri) {
-    int suanki = liste;
-    liste = elemanlar[suanki][0];
-
-    elemanlar[suanki][0] = -1;
-    elemanlar[suanki][1] = veri;
-
-    if (bas == -1)
-    {
-        bas = suanki;
+int kontrolet(onceliksirasi *x)
+{
+    if (x->next==NULL)
+ {
+        printf("kuyruk bos:");
+        return -1;
     }
-    else
-    {
-        elemanlar[kuyruk][0] = suanki;
-    }
-    kuyruk = suanki;
+
+    int veri=x->next->veri;
+    Node *temp=x->next;
+    x->next=x->next->next;
+    free(temp);
+    return veri;
 }
+void gecis(onceliksirasi *x, int veri)
+{
+    Node *yenidugum=(Node *) malloc(sizeof(Node));
+    yenidugum->veri=veri;
 
-void arayaEkle(int indeks, int veri) {
-
-    int suanki = bas;
-    int i;
-
-    for (i = 0; i < indeks - 1; i++)
-    {
-        suanki = elemanlar[suanki][0];
-    }
-
-    int yeniEleman = liste;
-    liste = elemanlar[yeniEleman][0];
-
-    elemanlar[yeniEleman][0] = elemanlar[suanki][0];
-    elemanlar[yeniEleman][1] = veri;
-
-    elemanlar[suanki][0] = yeniEleman;
-
-    if (kuyruk == suanki)
-    {
-        kuyruk = yeniEleman;
+    if (x->next==NULL)
+ {
+        x->next=yenidugum;
+        yenidugum->next=NULL;
+    } else
+ {
+        Node *temp=x->next;
+        Node *bas=NULL;
+        while (temp!=NULL && temp->veri>=veri)
+ {
+            bas=temp;
+            temp=temp->next;
+        }
+        if (bas == NULL)
+ {
+            x->next=yenidugum;
+        } else
+{
+            bas->next=yenidugum;
+        }
+        yenidugum->next=temp;
     }
 }
+int main()
 
-void sil(int veri) {
-    int suanki = bas;
-    int onceki = -1;
+ {
+    onceliksirasi x={0,NULL};
+    gecis(&x,4);
+    gecis(&x,6);
+    gecis(&x,9);
+    gecis(&x,8);
+    gecis(&x,2);
 
-    while (elemanlar[suanki][1] != veri)
-    {
-        onceki = suanki;
-        suanki = elemanlar[suanki][0];
-    }
-    if (onceki == -1)
-    {
-        bas = elemanlar[suanki][0];
-    }
-    else
-    {
-        elemanlar[onceki][0] = elemanlar[suanki][0];
-    }
-    if (kuyruk == suanki)
-    {
-        kuyruk = onceki;
-    }
-
-    elemanlar[suanki][0] = liste;
-    liste = suanki;
-}
-
-void listeyiYazdir() {
-    int suanki = bas;
-    while (suanki != -1)
-    {
-        printf("%d ", elemanlar[suanki][1]);
-        suanki = elemanlar[suanki][0];
-    }
-    printf("\n");
-}
-
-int main() {
-    int i;
-    for (i = 0; i < 10 - 1; i++)
-    {
-        elemanlar[i][0] = i + 1;
-    }
-    elemanlar[10 - 1][0] = -1;
-
-    sonaEkle(1);
-    sonaEkle(2);
-    sonaEkle(3);
-    sonaEkle(4);
-    sonaEkle(5);
-    sonaEkle(6);
-    sonaEkle(8);
-    sonaEkle(9);
-    sonaEkle(10);
-    listeyiYazdir();
-
-    arayaEkle(6, 7);
-    listeyiYazdir();
-
-    sil(8);
-    listeyiYazdir();
+    printf("%d\n", kontrolet(&x));
+    printf("%d\n", kontrolet(&x));
+    printf("%d\n", kontrolet(&x));
+    printf("%d\n", kontrolet(&x));
+    printf("%d\n", kontrolet(&x));
+    printf("%d\n", kontrolet(&x));
 
     return 0;
-};
+}
